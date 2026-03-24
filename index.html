@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restoration Comparison</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2563eb;
+            --handle: #ffffff;
+            --text: #1f2937;
+            --bg: #f3f4f6;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        header {
+            text-align: center;
+            padding: 3rem 1rem 2rem;
+            max-width: 800px;
+        }
+
+        h1 {
+            margin: 0 0 0.5rem;
+            font-weight: 700;
+            font-size: 2.5rem;
+            color: #111827;
+        }
+
+        p.subtitle {
+            margin: 0;
+            color: #4b5563;
+            font-size: 1.1rem;
+        }
+
+        main {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            padding: 0 1rem 3rem;
+            box-sizing: border-box;
+        }
+
+        /* Container styling */
+        .comparison-container {
+            position: relative;
+            width: 100%;
+            max-width: 1000px;
+            aspect-ratio: 16/9;
+            background-color: #000;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.15);
+            /* This variable will be updated by JS */
+            --position: 50%;
+        }
+
+        .image-after,
+        .image-before {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            user-select: none;
+            -webkit-user-drag: none;
+        }
+
+        /* After image is full width in background */
+        .image-after {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Before image wrapper is clipped based on slider position */
+        .image-before-wrapper {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            clip-path: polygon(0 0, var(--position) 0, var(--position) 100%, 0 100%);
+            z-index: 1;
+        }
+
+        /* Labels */
+        .badge {
+            position: absolute;
+            bottom: 24px;
+            padding: 8px 16px;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            color: white;
+            font-weight: 600;
+            font-size: 0.9rem;
+            border-radius: 8px;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            pointer-events: none;
+        }
+
+        /* Before label placed inside wrapper so it gets clipped along with the before image */
+        .badge-before {
+            left: 24px;
+        }
+
+        /* After label placed essentially under the before layer so it gets revealed */
+        .badge-after {
+            right: 24px;
+            z-index: 0;
+        }
+
+        /* The draggable slider line */
+        .slider-handle {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: var(--position);
+            width: 4px;
+            background-color: var(--handle);
+            transform: translateX(-50%);
+            z-index: 2;
+            cursor: ew-resize;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            /* Extend hit area for easier grabbing */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .slider-handle::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: -15px;
+            right: -15px;
+            cursor: inherit;
+        }
+
+        .slider-button {
+            position: relative;
+            /* relative to standard handle width */
+            width: 48px;
+            height: 48px;
+            background-color: var(--handle);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+            transition: transform 0.1s ease;
+        }
+
+        .slider-handle:active .slider-button,
+        .slider-handle.active .slider-button {
+            transform: scale(0.9);
+        }
+
+        /* SVG Arrows */
+        .slider-button svg {
+            width: 28px;
+            height: 28px;
+            color: var(--primary);
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            .badge {
+                bottom: 16px;
+                padding: 6px 12px;
+                font-size: 0.8rem;
+            }
+
+            .badge-before {
+                left: 16px;
+            }
+
+            .badge-after {
+                right: 16px;
+            }
+
+            .slider-button {
+                width: 40px;
+                height: 40px;
+            }
+
+            .slider-button svg {
+                width: 24px;
+                height: 24px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>Restoration Comparison</h1>
+        <p class="subtitle">Drag the slider to see the transformation.</p>
+    </header>
+
+    <main>
+        <div class="comparison-container" id="comparison-container">
+
+            <!-- After Layer (Background) -->
+            <img src="images/SVT_EP_2_AFTER.png" alt="After restoration" class="image-after">
+            <span class="badge badge-after">After</span>
+
+            <!-- Before Layer (Foreground) -->
+            <div class="image-before-wrapper">
+                <img src="images/SVT_EP_2_BEFORE.png" alt="Before restoration" class="image-before">
+                <span class="badge badge-before">Before</span>
+            </div>
+
+            <!-- Draggable Handle -->
+            <div class="slider-handle" id="slider-handle" aria-label="Image comparison slider" role="slider"
+                aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
+                <div class="slider-button">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="11 17 6 12 11 7"></polyline>
+                        <polyline points="13 17 18 12 13 7"></polyline>
+                    </svg>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <script>
+        const container = document.getElementById('comparison-container');
+        const handle = document.getElementById('slider-handle');
+
+        let isDragging = false;
+
+        function startDrag(e) {
+            isDragging = true;
+            handle.classList.add('active');
+
+            // Prevent text selection globally while dragging
+            document.body.style.userSelect = 'none';
+            document.body.style.webkitUserSelect = 'none';
+
+            // Prevent default behavior to avoid text selection or image drag
+            if (e.type === 'touchstart') {
+                container.style.touchAction = 'none'; // prevents scrolling while dragging on mobile
+            }
+        }
+
+        function stopDrag() {
+            isDragging = false;
+            handle.classList.remove('active');
+
+            // Restore text selection
+            document.body.style.userSelect = '';
+            document.body.style.webkitUserSelect = '';
+
+            container.style.touchAction = 'auto';
+        }
+
+        function handleMove(e) {
+            if (!isDragging) return;
+
+            // Get standard mouse position or touch position
+            const clientX = e.type.includes('mouse') ? e.clientX : e.touches[0].clientX;
+
+            const rect = container.getBoundingClientRect();
+            // Calculate percentage
+            let position = ((clientX - rect.left) / rect.width) * 100;
+
+            // Constrain slider between 0 and 100%
+            if (position < 0) position = 0;
+            if (position > 100) position = 100;
+
+            // Update CSS variable
+            container.style.setProperty('--position', `${position}%`);
+            handle.setAttribute('aria-valuenow', Math.round(position));
+        }
+
+        // Mouse Events
+        handle.addEventListener('mousedown', startDrag);
+        window.addEventListener('mouseup', stopDrag);
+        window.addEventListener('mousemove', handleMove);
+
+        // Touch Events
+        handle.addEventListener('touchstart', startDrag, { passive: false });
+        window.addEventListener('touchend', stopDrag);
+        window.addEventListener('touchcancel', stopDrag);
+        window.addEventListener('touchmove', handleMove, { passive: false });
+    </script>
+</body>
+
+</html>
