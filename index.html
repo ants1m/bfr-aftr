@@ -5,9 +5,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Restoration Comparison</title>
-    <!-- We add a lighter font weight for the greek text matching the image -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
+        @font-face {
+            font-family: 'PFDinTextPro';
+            src: url('fonts/PFDinTextPro-Medium.otf') format('opentype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
         :root {
             --primary: #2563eb;
             --handle: #ffffff;
@@ -19,7 +24,7 @@
         body {
             margin: 0;
             padding: 0;
-            font-family: 'Inter', sans-serif;
+            font-family: 'PFDinTextPro', sans-serif;
             background-color: var(--bg);
             color: var(--text);
         }
@@ -38,7 +43,7 @@
             display: flex;
             flex-direction: column;
             /* Based on user image, text is very light and airy */
-            font-weight: 300;
+            font-weight: normal;
             color: var(--sidebar-text);
         }
 
