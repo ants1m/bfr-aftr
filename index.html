@@ -267,6 +267,18 @@
         const container = document.getElementById('comparison-container');
         const handle = document.getElementById('slider-handle');
 
+        // Check URL for dynamic image parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const beforeParam = urlParams.get('before');
+        const afterParam = urlParams.get('after');
+
+        if (beforeParam) {
+            document.querySelector('.image-before').src = (beforeParam.startsWith('http') || beforeParam.startsWith('data:')) ? beforeParam : 'images/' + beforeParam;
+        }
+        if (afterParam) {
+            document.querySelector('.image-after').src = (afterParam.startsWith('http') || afterParam.startsWith('data:')) ? afterParam : 'images/' + afterParam;
+        }
+
         let isDragging = false;
 
         function startDrag(e) {
