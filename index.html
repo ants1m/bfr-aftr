@@ -308,6 +308,21 @@
         window.addEventListener('touchend', stopDrag);
         window.addEventListener('touchcancel', stopDrag);
         window.addEventListener('touchmove', handleMove, { passive: false });
+
+        // Click to jump
+        container.addEventListener('click', function (e) {
+            if (isDragging) return;
+            if (e.target.closest('#slider-handle')) return;
+            const clientX = e.clientX;
+            const rect = container.getBoundingClientRect();
+            let position = ((clientX - rect.left) / rect.width) * 100;
+            if (position < 0) position = 0;
+            if (position > 100) position = 100;
+
+            // Apply new position
+            container.style.setProperty('--position', `${position}%`);
+            handle.setAttribute('aria-valuenow', Math.round(position));
+        });
     </script>
 </body>
 
