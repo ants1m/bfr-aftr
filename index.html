@@ -42,9 +42,25 @@
             padding: 4rem 2rem;
             display: flex;
             flex-direction: column;
-            /* Based on user image, text is very light and airy */
             font-weight: normal;
             color: var(--sidebar-text);
+            overflow-y: auto;
+            max-height: 100vh;
+            box-sizing: border-box;
+        }
+
+        /* Customize scrollbar for sidebar */
+        .sidebar::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .sidebar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .sidebar::-webkit-scrollbar-thumb {
+            background-color: #d1d5db;
+            border-radius: 20px;
         }
 
         .sidebar-title {
@@ -56,6 +72,11 @@
         .sidebar-category {
             font-size: 1.15rem;
             margin-bottom: 1.5rem;
+            margin-top: 2.5rem;
+        }
+
+        .sidebar-category:first-of-type {
+            margin-top: 0;
         }
 
         .sidebar-menu {
@@ -90,6 +111,8 @@
             overflow-y: auto;
             border-left: 1px solid #e5e7eb;
             background-color: #ffffff;
+            height: 100vh;
+            box-sizing: border-box;
         }
 
         header {
@@ -263,8 +286,9 @@
             .sidebar {
                 width: 100%;
                 padding: 2rem 1.5rem;
-                box-sizing: border-box;
                 border-bottom: 1px solid #e5e7eb;
+                max-height: none;
+                overflow: visible;
             }
 
             .sidebar-title {
@@ -279,6 +303,8 @@
 
             .main-content {
                 border-left: none;
+                height: auto;
+                overflow: visible;
             }
 
             h1 {
@@ -318,10 +344,34 @@
         <!-- Sidebar Navigation -->
         <aside class="sidebar">
             <div class="sidebar-title">περιεχόμενα:</div>
+
+            <!-- EPISODE 1 TITLE + MENU -->
+            <div class="sidebar-category">σαββατογεννημένες επεισόδιο 1</div>
+            <ul class="sidebar-menu">
+                <li><a href="#" class="menu-link active" onclick="loadComparison('ep1_1', event)">- still 1</a></li>
+                <li><a href="#" class="menu-link" onclick="loadComparison('ep1_2', event)">- still 2</a></li>
+                <li><a href="#" class="menu-link" onclick="loadComparison('ep1_3', event)">- still 3</a></li>
+                <li><a href="#" class="menu-link" onclick="loadComparison('ep1_4', event)">- still 4</a></li>
+                <li><a href="#" class="menu-link" onclick="loadComparison('ep1_5', event)">- still 5</a></li>
+                <li><a href="#" class="menu-link" onclick="loadComparison('ep1_6', event)">- still 6</a></li>
+                <li><a href="#" class="menu-link" onclick="loadComparison('ep1_7', event)">- still 7</a></li>
+                <li><a href="#" class="menu-link" onclick="loadComparison('ep1_8', event)">- still 8</a></li>
+                <li><a href="#" class="menu-link" onclick="loadComparison('ep1_9', event)">- still 9</a></li>
+                <li><a href="#" class="menu-link" onclick="loadComparison('ep1_10', event)">- still 10</a></li>
+                <li><a href="#" class="menu-link" onclick="loadComparison('ep1_11', event)">- still 11</a></li>
+                <li><a href="#" class="menu-link" onclick="loadComparison('ep1_12', event)">- still 12</a></li>
+                <li><a href="#" class="menu-link" onclick="loadComparison('ep1_13', event)">- still 13</a></li>
+                <li><a href="#" class="menu-link" onclick="loadComparison('ep1_14', event)">- still 14</a></li>
+                <li><a href="#" class="menu-link" onclick="loadComparison('ep1_15', event)">- still 15</a></li>
+                <li><a href="#" class="menu-link" onclick="loadComparison('ep1_16', event)">- still 16</a></li>
+                <li><a href="#" class="menu-link" onclick="loadComparison('ep1_17', event)">- still 17</a></li>
+                <li><a href="#" class="menu-link" onclick="loadComparison('ep1_18', event)">- still 18</a></li>
+            </ul>
+
+            <!-- EPISODE 2 TITLE + MENU -->
             <div class="sidebar-category">σαββατογεννημένες επεισόδιο 2</div>
             <ul class="sidebar-menu">
-                <li><a href="#" class="menu-link active" onclick="loadComparison('chapter1', event)">- still 1</a>
-                </li>
+                <li><a href="#" class="menu-link" onclick="loadComparison('chapter1', event)">- still 1</a></li>
                 <li><a href="#" class="menu-link" onclick="loadComparison('chapter2', event)">- still 2</a></li>
                 <li><a href="#" class="menu-link" onclick="loadComparison('chapter3', event)">- still 3</a></li>
                 <li><a href="#" class="menu-link" onclick="loadComparison('chapter4', event)">- still 4</a></li>
@@ -336,7 +386,7 @@
         <!-- Main Workspace -->
         <div class="main-content">
             <header>
-                <h1 id="main-title">Restoration Comparison</h1>
+                <h1 id="main-title">Still 1</h1>
                 <p class="subtitle">Drag the slider to see the transformation.</p>
             </header>
 
@@ -344,13 +394,12 @@
                 <div class="comparison-container" id="comparison-container">
 
                     <!-- After Layer (Background) -->
-                    <img src="images/SVT_EP_2_AFTER.png" alt="After restoration" class="image-after" id="img-after">
+                    <img src="images/EP1/after1.png" alt="After restoration" class="image-after" id="img-after">
                     <span class="badge badge-after">After</span>
 
                     <!-- Before Layer (Foreground) -->
                     <div class="image-before-wrapper">
-                        <img src="images/SVT_EP_2_BEFORE.png" alt="Before restoration" class="image-before"
-                            id="img-before">
+                        <img src="images/EP1/before1.png" alt="Before restoration" class="image-before" id="img-before">
                         <span class="badge badge-before">Before</span>
                     </div>
 
@@ -376,51 +425,36 @@
     <script>
         // Database of comparisons
         const comparisons = {
-            'chapter1': {
-                title: 'Still 1',
-                before: 'images/SVT_EP_2_BEFORE.png',
-                after: 'images/SVT_EP_2_AFTER.png'
-            },
-            'chapter2': {
-                title: 'Still 2',
-                before: 'images/SVT_EP2_BEFORE_2.png',
-                after: 'images/SVT_EP_2_AFTER_2.png'
-            },
-            'chapter3': {
-                title: 'Still 3',
-                before: 'images/SVT_EP_2_BEFORE_3.png',
-                after: 'images/SVT_EP_2_AFTER_3.png'
-            },
-            'chapter4': {
-                title: 'Still 4',
-                before: 'images/SVT_EP_2_BEFORE_4.png',
-                after: 'images/SVT_EP_2_AFTER_4.png'
-            },
-            'chapter5': {
-                title: 'Still 5',
-                before: 'images/SVT_EP_2_BEFORE_5.png',
-                after: 'images/SVT_EP_2_AFTER_5.png'
-            },
-            'chapter6': {
-                title: 'Still 6',
-                before: 'images/SVT_EP_2_BEFORE_6.png',
-                after: 'images/SVT_EP_2_AFTER_6.png'
-            },
-            'chapter7': {
-                title: 'Still 7',
-                before: 'images/SVT_EP_2_BEFORE_7.png',
-                after: 'images/SVT_EP_2_AFTER_7.png'
-            },
-            'chapter8': {
-                title: 'Still 8',
-                before: 'images/SVT_EP_2_BEFORE_8.png',
-                after: 'images/SVT_EP_2_AFTER_8.png'
-            },
-            'chapter9': {
-                title: 'Still 9',
-                before: 'images/SVT_EP_2_BEFORE_9.png',
-                after: 'images/SVT_EP_2_AFTER_9.png'
-            }
+            // EPISODE 1
+            'ep1_1': { title: 'Still 1', before: 'images/EP1/before1.png', after: 'images/EP1/after1.png' },
+            'ep1_2': { title: 'Still 2', before: 'images/EP1/before2.png', after: 'images/EP1/after2.png' },
+            'ep1_3': { title: 'Still 3', before: 'images/EP1/before3.png', after: 'images/EP1/after3.png' },
+            'ep1_4': { title: 'Still 4', before: 'images/EP1/before4.png', after: 'images/EP1/after4.png' },
+            'ep1_5': { title: 'Still 5', before: 'images/EP1/before5.png', after: 'images/EP1/after5.png' },
+            'ep1_6': { title: 'Still 6', before: 'images/EP1/before6.png', after: 'images/EP1/after6.png' },
+            'ep1_7': { title: 'Still 7', before: 'images/EP1/before7.png', after: 'images/EP1/after7.png' },
+            'ep1_8': { title: 'Still 8', before: 'images/EP1/before8.png', after: 'images/EP1/after8.png' },
+            'ep1_9': { title: 'Still 9', before: 'images/EP1/before9.png', after: 'images/EP1/after9.png' },
+            'ep1_10': { title: 'Still 10', before: 'images/EP1/before10.png', after: 'images/EP1/after10.png' },
+            'ep1_11': { title: 'Still 11', before: 'images/EP1/before11.png', after: 'images/EP1/after11.png' },
+            'ep1_12': { title: 'Still 12', before: 'images/EP1/before12.png', after: 'images/EP1/after12.png' },
+            'ep1_13': { title: 'Still 13', before: 'images/EP1/before13.png', after: 'images/EP1/after13.png' },
+            'ep1_14': { title: 'Still 14', before: 'images/EP1/before14.png', after: 'images/EP1/after14.png' },
+            'ep1_15': { title: 'Still 15', before: 'images/EP1/before15.png', after: 'images/EP1/after15.png' },
+            'ep1_16': { title: 'Still 16', before: 'images/EP1/before16.png', after: 'images/EP1/after16.png' },
+            'ep1_17': { title: 'Still 17', before: 'images/EP1/before17.png', after: 'images/EP1/after17.png' },
+            'ep1_18': { title: 'Still 18', before: 'images/EP1/before18.png', after: 'images/EP1/after18.png' },
+
+            // EPISODE 2
+            'chapter1': { title: 'Still 1', before: 'images/SVT_EP_2_BEFORE.png', after: 'images/SVT_EP_2_AFTER.png' },
+            'chapter2': { title: 'Still 2', before: 'images/SVT_EP2_BEFORE_2.png', after: 'images/SVT_EP_2_AFTER_2.png' },
+            'chapter3': { title: 'Still 3', before: 'images/SVT_EP_2_BEFORE_3.png', after: 'images/SVT_EP_2_AFTER_3.png' },
+            'chapter4': { title: 'Still 4', before: 'images/SVT_EP_2_BEFORE_4.png', after: 'images/SVT_EP_2_AFTER_4.png' },
+            'chapter5': { title: 'Still 5', before: 'images/SVT_EP_2_BEFORE_5.png', after: 'images/SVT_EP_2_AFTER_5.png' },
+            'chapter6': { title: 'Still 6', before: 'images/SVT_EP_2_BEFORE_6.png', after: 'images/SVT_EP_2_AFTER_6.png' },
+            'chapter7': { title: 'Still 7', before: 'images/SVT_EP_2_BEFORE_7.png', after: 'images/SVT_EP_2_AFTER_7.png' },
+            'chapter8': { title: 'Still 8', before: 'images/SVT_EP_2_BEFORE_8.png', after: 'images/SVT_EP_2_AFTER_8.png' },
+            'chapter9': { title: 'Still 9', before: 'images/SVT_EP_2_BEFORE_9.png', after: 'images/SVT_EP_2_AFTER_9.png' }
         };
 
         const container = document.getElementById('comparison-container');
@@ -447,7 +481,7 @@
                 mainTitle.innerText = data.title;
             }
 
-            // Update URL parameters so links are shareable without reloading page
+            // Update URL parameters
             const newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname + '?chapter=' + id;
             window.history.pushState({ path: newUrl }, '', newUrl);
 
@@ -460,7 +494,7 @@
         function initFromURL() {
             const urlParams = new URLSearchParams(window.location.search);
 
-            // If they are using specific image parameters explicitly
+            // 1. Direct Image URLs
             const beforeParam = urlParams.get('before');
             const afterParam = urlParams.get('after');
             if (beforeParam || afterParam) {
@@ -470,18 +504,19 @@
                 if (afterParam) {
                     imgAfter.src = (afterParam.startsWith('http') || afterParam.startsWith('data:')) ? afterParam : 'images/' + afterParam;
                 }
-                // clear active states since custom URL overrides chapters
                 document.querySelectorAll('.menu-link').forEach(link => link.classList.remove('active'));
                 return;
             }
 
-            // If they are using a chapter ID link
+            // 2. Pre-defined Chapters
             const chapterId = urlParams.get('chapter');
             if (chapterId && comparisons[chapterId]) {
-                const map = { 'chapter1': 0, 'chapter2': 1, 'chapter3': 2, 'chapter4': 3, 'chapter5': 4, 'chapter6': 5, 'chapter7': 6, 'chapter8': 7, 'chapter9': 8 };
                 const links = document.querySelectorAll('.menu-link');
-                if (links[map[chapterId]]) {
-                    loadComparison(chapterId, { target: links[map[chapterId]], preventDefault: () => { } });
+                const linkElements = Array.from(links);
+                const targetLink = linkElements.find(el => el.getAttribute('onclick').includes(`'${chapterId}'`));
+
+                if (targetLink) {
+                    loadComparison(chapterId, { target: targetLink, preventDefault: () => { } });
                 } else {
                     loadComparison(chapterId, null);
                 }
@@ -526,18 +561,15 @@
             handle.setAttribute('aria-valuenow', Math.round(position));
         }
 
-        // Mouse Events
         handle.addEventListener('mousedown', startDrag);
         window.addEventListener('mouseup', stopDrag);
         window.addEventListener('mousemove', handleMove);
 
-        // Touch Events
         handle.addEventListener('touchstart', startDrag, { passive: false });
         window.addEventListener('touchend', stopDrag);
         window.addEventListener('touchcancel', stopDrag);
         window.addEventListener('touchmove', handleMove, { passive: false });
 
-        // Click to jump
         container.addEventListener('click', function (e) {
             if (isDragging) return;
             if (e.target.closest('#slider-handle')) return;
