@@ -5,13 +5,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Restoration Comparison</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- We add a lighter font weight for the greek text matching the image -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary: #2563eb;
             --handle: #ffffff;
             --text: #1f2937;
             --bg: #f3f4f6;
+            --sidebar-text: #888888;
         }
 
         body {
@@ -20,10 +22,69 @@
             font-family: 'Inter', sans-serif;
             background-color: var(--bg);
             color: var(--text);
+        }
+
+        .app-layout {
+            display: flex;
+            min-height: 100vh;
+            width: 100%;
+        }
+
+        /* Sidebar Styling */
+        .sidebar {
+            width: 280px;
+            background-color: transparent;
+            padding: 4rem 2rem;
+            display: flex;
+            flex-direction: column;
+            /* Based on user image, text is very light and airy */
+            font-weight: 300;
+            color: var(--sidebar-text);
+        }
+
+        .sidebar-title {
+            font-size: 1.25rem;
+            margin-bottom: 2rem;
+            letter-spacing: -0.02em;
+        }
+
+        .sidebar-category {
+            font-size: 1.15rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .sidebar-menu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .sidebar-menu a {
+            text-decoration: none;
+            color: var(--sidebar-text);
+            font-size: 1.15rem;
+            transition: color 0.2s;
+            display: inline-block;
+        }
+
+        .sidebar-menu a:hover,
+        .sidebar-menu a.active {
+            color: #111827;
+            font-weight: 400;
+        }
+
+        /* Main Content Styling */
+        .main-content {
+            flex: 1;
             display: flex;
             flex-direction: column;
             align-items: center;
-            min-height: 100vh;
+            overflow-y: auto;
+            border-left: 1px solid #e5e7eb;
+            background-color: #ffffff;
         }
 
         header {
@@ -55,17 +116,6 @@
             gap: 2.5rem;
         }
 
-        .footer-logo {
-            max-width: 250px;
-            height: auto;
-            opacity: 0.9;
-            transition: opacity 0.3s ease;
-        }
-
-        .footer-logo:hover {
-            opacity: 1;
-        }
-
         /* Container styling */
         .comparison-container {
             position: relative;
@@ -76,8 +126,11 @@
             border-radius: 16px;
             overflow: hidden;
             box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.15);
+            user-select: none;
+            -webkit-user-select: none;
             /* This variable will be updated by JS */
             --position: 50%;
+            cursor: pointer;
         }
 
         .image-after,
@@ -91,7 +144,6 @@
             -webkit-user-drag: none;
         }
 
-        /* After image is full width in background */
         .image-after {
             position: absolute;
             top: 0;
@@ -100,7 +152,6 @@
             height: 100%;
         }
 
-        /* Before image wrapper is clipped based on slider position */
         .image-before-wrapper {
             position: absolute;
             top: 0;
@@ -111,7 +162,6 @@
             z-index: 1;
         }
 
-        /* Labels */
         .badge {
             position: absolute;
             bottom: 24px;
@@ -127,20 +177,18 @@
             text-transform: uppercase;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             pointer-events: none;
+            transition: opacity 0.3s;
         }
 
-        /* Before label placed inside wrapper so it gets clipped along with the before image */
         .badge-before {
             left: 24px;
         }
 
-        /* After label placed essentially under the before layer so it gets revealed */
         .badge-after {
             right: 24px;
             z-index: 0;
         }
 
-        /* The draggable slider line */
         .slider-handle {
             position: absolute;
             top: 0;
@@ -152,7 +200,6 @@
             z-index: 2;
             cursor: ew-resize;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-            /* Extend hit area for easier grabbing */
             display: flex;
             justify-content: center;
             align-items: center;
@@ -170,7 +217,6 @@
 
         .slider-button {
             position: relative;
-            /* relative to standard handle width */
             width: 48px;
             height: 48px;
             background-color: var(--handle);
@@ -187,14 +233,49 @@
             transform: scale(0.9);
         }
 
-        /* SVG Arrows */
         .slider-button svg {
             width: 28px;
             height: 28px;
             color: var(--primary);
         }
 
+        .footer-logo {
+            max-width: 250px;
+            height: auto;
+            opacity: 0.9;
+            transition: opacity 0.3s ease;
+        }
+
+        .footer-logo:hover {
+            opacity: 1;
+        }
+
         @media (max-width: 768px) {
+            .app-layout {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+                padding: 2rem 1.5rem;
+                box-sizing: border-box;
+                border-bottom: 1px solid #e5e7eb;
+            }
+
+            .sidebar-title {
+                margin-bottom: 1rem;
+            }
+
+            .sidebar-menu {
+                flex-direction: row;
+                flex-wrap: wrap;
+                gap: 1rem;
+            }
+
+            .main-content {
+                border-left: none;
+            }
+
             h1 {
                 font-size: 2rem;
             }
@@ -228,55 +309,148 @@
 
 <body>
 
-    <header>
-        <h1>Restoration Comparison</h1>
-        <p class="subtitle">Drag the slider to see the transformation.</p>
-    </header>
+    <div class="app-layout">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="sidebar-title">περιεχόμενα:</div>
+            <div class="sidebar-category">σαββατογεννημένες επεισόδιο 2</div>
+            <ul class="sidebar-menu">
+                <li><a href="#" class="menu-link active" onclick="loadComparison('chapter1', event)">- chapter 1</a>
+                </li>
+                <li><a href="#" class="menu-link" onclick="loadComparison('chapter2', event)">- chapter 2</a></li>
+                <li><a href="#" class="menu-link" onclick="loadComparison('chapter3', event)">- chapter 3</a></li>
+                <li><a href="#" class="menu-link" onclick="loadComparison('chapter4', event)">- chapter 4</a></li>
+            </ul>
+        </aside>
 
-    <main>
-        <div class="comparison-container" id="comparison-container">
+        <!-- Main Workspace -->
+        <div class="main-content">
+            <header>
+                <h1 id="main-title">Restoration Comparison</h1>
+                <p class="subtitle">Drag the slider to see the transformation.</p>
+            </header>
 
-            <!-- After Layer (Background) -->
-            <img src="images/SVT_EP_2_AFTER.png" alt="After restoration" class="image-after">
-            <span class="badge badge-after">After</span>
+            <main>
+                <div class="comparison-container" id="comparison-container">
 
-            <!-- Before Layer (Foreground) -->
-            <div class="image-before-wrapper">
-                <img src="images/SVT_EP_2_BEFORE.png" alt="Before restoration" class="image-before">
-                <span class="badge badge-before">Before</span>
-            </div>
+                    <!-- After Layer (Background) -->
+                    <img src="images/SVT_EP_2_AFTER.png" alt="After restoration" class="image-after" id="img-after">
+                    <span class="badge badge-after">After</span>
 
-            <!-- Draggable Handle -->
-            <div class="slider-handle" id="slider-handle" aria-label="Image comparison slider" role="slider"
-                aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
-                <div class="slider-button">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                        stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                        <polyline points="11 17 6 12 11 7"></polyline>
-                        <polyline points="13 17 18 12 13 7"></polyline>
-                    </svg>
+                    <!-- Before Layer (Foreground) -->
+                    <div class="image-before-wrapper">
+                        <img src="images/SVT_EP_2_BEFORE.png" alt="Before restoration" class="image-before"
+                            id="img-before">
+                        <span class="badge badge-before">Before</span>
+                    </div>
+
+                    <!-- Draggable Handle -->
+                    <div class="slider-handle" id="slider-handle" aria-label="Image comparison slider" role="slider"
+                        aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
+                        <div class="slider-button">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="11 17 6 12 11 7"></polyline>
+                                <polyline points="13 17 18 12 13 7"></polyline>
+                            </svg>
+                        </div>
+                    </div>
+
                 </div>
-            </div>
 
+                <img src="images/meg-rest-logo.png" alt="Meg Rest Logo" class="footer-logo">
+            </main>
         </div>
-
-        <img src="images/meg-rest-logo.png" alt="Meg Rest Logo" class="footer-logo">
-    </main>
+    </div>
 
     <script>
+        // Database of comparisons
+        const comparisons = {
+            'chapter1': {
+                title: 'Chapter 1: Initial State',
+                before: 'images/SVT_EP_2_BEFORE.png',
+                after: 'images/SVT_EP_2_AFTER.png'
+            },
+            'chapter2': {
+                title: 'Chapter 2: Cleaning Phase',
+                before: 'images/before.png', // Fallback local placeholder
+                after: 'images/after.png'
+            },
+            'chapter3': {
+                title: 'Chapter 3: Restoration',
+                before: 'images/SVT_EP_2_BEFORE.png',
+                after: 'images/SVT_EP_2_AFTER.png'
+            },
+            'chapter4': {
+                title: 'Chapter 4: Final Touches',
+                before: 'images/before.png',
+                after: 'images/after.png'
+            }
+        };
+
         const container = document.getElementById('comparison-container');
         const handle = document.getElementById('slider-handle');
+        const imgBefore = document.getElementById('img-before');
+        const imgAfter = document.getElementById('img-after');
+        const mainTitle = document.getElementById('main-title');
 
-        // Check URL for dynamic image parameters
-        const urlParams = new URLSearchParams(window.location.search);
-        const beforeParam = urlParams.get('before');
-        const afterParam = urlParams.get('after');
+        // Sidebar Navigation Logic
+        function loadComparison(id, event) {
+            if (event) event.preventDefault();
 
-        if (beforeParam) {
-            document.querySelector('.image-before').src = (beforeParam.startsWith('http') || beforeParam.startsWith('data:')) ? beforeParam : 'images/' + beforeParam;
+            // Update active state in menu
+            document.querySelectorAll('.menu-link').forEach(link => link.classList.remove('active'));
+            if (event && event.target) {
+                event.target.classList.add('active');
+            }
+
+            // Load data
+            const data = comparisons[id];
+            if (data) {
+                imgBefore.src = data.before;
+                imgAfter.src = data.after;
+                mainTitle.innerText = data.title;
+            }
+
+            // Update URL parameters so links are shareable without reloading page
+            const newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname + '?chapter=' + id;
+            window.history.pushState({ path: newUrl }, '', newUrl);
+
+            // Reset slider to center
+            container.style.setProperty('--position', `50%`);
+            handle.setAttribute('aria-valuenow', 50);
         }
-        if (afterParam) {
-            document.querySelector('.image-after').src = (afterParam.startsWith('http') || afterParam.startsWith('data:')) ? afterParam : 'images/' + afterParam;
+
+        // Check URL for direct links on load
+        function initFromURL() {
+            const urlParams = new URLSearchParams(window.location.search);
+
+            // If they are using specific image parameters explicitly
+            const beforeParam = urlParams.get('before');
+            const afterParam = urlParams.get('after');
+            if (beforeParam || afterParam) {
+                if (beforeParam) {
+                    imgBefore.src = (beforeParam.startsWith('http') || beforeParam.startsWith('data:')) ? beforeParam : 'images/' + beforeParam;
+                }
+                if (afterParam) {
+                    imgAfter.src = (afterParam.startsWith('http') || afterParam.startsWith('data:')) ? afterParam : 'images/' + afterParam;
+                }
+                // clear active states since custom URL overrides chapters
+                document.querySelectorAll('.menu-link').forEach(link => link.classList.remove('active'));
+                return;
+            }
+
+            // If they are using a chapter ID link
+            const chapterId = urlParams.get('chapter');
+            if (chapterId && comparisons[chapterId]) {
+                const map = { 'chapter1': 0, 'chapter2': 1, 'chapter3': 2, 'chapter4': 3 };
+                const links = document.querySelectorAll('.menu-link');
+                if (links[map[chapterId]]) {
+                    loadComparison(chapterId, { target: links[map[chapterId]], preventDefault: () => { } });
+                } else {
+                    loadComparison(chapterId, null);
+                }
+            }
         }
 
         let isDragging = false;
@@ -285,13 +459,11 @@
             isDragging = true;
             handle.classList.add('active');
 
-            // Prevent text selection globally while dragging
             document.body.style.userSelect = 'none';
             document.body.style.webkitUserSelect = 'none';
 
-            // Prevent default behavior to avoid text selection or image drag
             if (e.type === 'touchstart') {
-                container.style.touchAction = 'none'; // prevents scrolling while dragging on mobile
+                container.style.touchAction = 'none';
             }
         }
 
@@ -299,7 +471,6 @@
             isDragging = false;
             handle.classList.remove('active');
 
-            // Restore text selection
             document.body.style.userSelect = '';
             document.body.style.webkitUserSelect = '';
 
@@ -309,18 +480,13 @@
         function handleMove(e) {
             if (!isDragging) return;
 
-            // Get standard mouse position or touch position
             const clientX = e.type.includes('mouse') ? e.clientX : e.touches[0].clientX;
-
             const rect = container.getBoundingClientRect();
-            // Calculate percentage
             let position = ((clientX - rect.left) / rect.width) * 100;
 
-            // Constrain slider between 0 and 100%
             if (position < 0) position = 0;
             if (position > 100) position = 100;
 
-            // Update CSS variable
             container.style.setProperty('--position', `${position}%`);
             handle.setAttribute('aria-valuenow', Math.round(position));
         }
@@ -346,10 +512,12 @@
             if (position < 0) position = 0;
             if (position > 100) position = 100;
 
-            // Apply new position
             container.style.setProperty('--position', `${position}%`);
             handle.setAttribute('aria-valuenow', Math.round(position));
         });
+
+        // Run initialization
+        initFromURL();
     </script>
 </body>
 
