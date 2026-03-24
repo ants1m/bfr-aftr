@@ -73,6 +73,25 @@
             font-size: 1.15rem;
             margin-bottom: 1.5rem;
             margin-top: 2.5rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            user-select: none;
+        }
+
+        .sidebar-category:hover {
+            color: #111827;
+        }
+
+        .sidebar-category::after {
+            content: '▼';
+            font-size: 0.7rem;
+            opacity: 0.5;
+        }
+
+        .sidebar-category.collapsed::after {
+            content: '▶';
         }
 
         .sidebar-category:first-of-type {
@@ -82,10 +101,14 @@
         .sidebar-menu {
             list-style: none;
             padding: 0;
-            margin: 0;
+            margin: 0 0 1.5rem 0;
             display: flex;
             flex-direction: column;
             gap: 1rem;
+        }
+
+        .sidebar-menu.collapsed {
+            display: none;
         }
 
         .sidebar-menu a {
@@ -346,7 +369,7 @@
             <div class="sidebar-title">περιεχόμενα:</div>
 
             <!-- EPISODE 1 TITLE + MENU -->
-            <div class="sidebar-category">σαββατογεννημένες επεισόδιο 1</div>
+            <div class="sidebar-category" onclick="toggleMenu(this)">σαββατογεννημένες επεισόδιο 1</div>
             <ul class="sidebar-menu">
                 <li><a href="#" class="menu-link active" onclick="loadComparison('ep1_1', event)">- still 1</a></li>
                 <li><a href="#" class="menu-link" onclick="loadComparison('ep1_2', event)">- still 2</a></li>
@@ -369,8 +392,8 @@
             </ul>
 
             <!-- EPISODE 2 TITLE + MENU -->
-            <div class="sidebar-category">σαββατογεννημένες επεισόδιο 2</div>
-            <ul class="sidebar-menu">
+            <div class="sidebar-category collapsed" onclick="toggleMenu(this)">σαββατογεννημένες επεισόδιο 2</div>
+            <ul class="sidebar-menu collapsed">
                 <li><a href="#" class="menu-link" onclick="loadComparison('chapter1', event)">- still 1</a></li>
                 <li><a href="#" class="menu-link" onclick="loadComparison('chapter2', event)">- still 2</a></li>
                 <li><a href="#" class="menu-link" onclick="loadComparison('chapter3', event)">- still 3</a></li>
@@ -463,6 +486,14 @@
         const imgAfter = document.getElementById('img-after');
         const mainTitle = document.getElementById('main-title');
 
+        function toggleMenu(categoryEl) {
+            categoryEl.classList.toggle('collapsed');
+            const menuEl = categoryEl.nextElementSibling;
+            if (menuEl && menuEl.classList.contains('sidebar-menu')) {
+                menuEl.classList.toggle('collapsed');
+            }
+        }
+
         // Sidebar Navigation Logic
         function loadComparison(id, event) {
             if (event) event.preventDefault();
@@ -516,6 +547,14 @@
                 const targetLink = linkElements.find(el => el.getAttribute('onclick').includes(`'${chapterId}'`));
 
                 if (targetLink) {
+                    const parentMenu = targetLink.closest('.sidebar-menu');
+                    if (parentMenu) {
+                        parentMenu.classList.remove('collapsed');
+                        const cat = parentMenu.previousElementSibling;
+                        if (cat && cat.classList.contains('sidebar-category')) {
+                            cat.classList.remove('collapsed');
+                        }
+                    }
                     loadComparison(chapterId, { target: targetLink, preventDefault: () => { } });
                 } else {
                     loadComparison(chapterId, null);
