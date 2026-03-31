@@ -136,6 +136,31 @@
             background-color: #ffffff;
             height: 100vh;
             box-sizing: border-box;
+            position: relative;
+        }
+
+        .top-nav {
+            position: absolute;
+            top: 2rem;
+            right: 3rem;
+            display: flex;
+            gap: 2rem;
+            z-index: 10;
+        }
+
+        .nav-tab {
+            text-decoration: none;
+            color: var(--sidebar-text);
+            font-size: 0.9rem;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            transition: color 0.2s;
+            text-transform: uppercase;
+        }
+
+        .nav-tab:hover,
+        .nav-tab.active {
+            color: #111827;
         }
 
         header {
@@ -306,6 +331,15 @@
                 flex-direction: column;
             }
 
+            .top-nav {
+                position: relative;
+                top: 0;
+                right: 0;
+                justify-content: center;
+                margin-top: 1.5rem;
+                width: 100%;
+            }
+
             .sidebar {
                 width: 100%;
                 padding: 2rem 1.5rem;
@@ -417,6 +451,13 @@
 
         <!-- Main Workspace -->
         <div class="main-content">
+
+            <div class="top-nav">
+                <a href="#" class="nav-tab active">PHOTOS</a>
+                <a href="#" class="nav-tab"
+                    onclick="alert('Video comparison tool coming soon!'); return false;">VIDEO</a>
+            </div>
+
             <header>
                 <h1 id="main-title">Still 1</h1>
                 <p class="subtitle">Drag the slider to see the transformation.</p>
