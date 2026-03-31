@@ -320,6 +320,37 @@
             color: var(--primary);
         }
 
+        .sound-button {
+            position: absolute;
+            top: 24px;
+            right: 24px;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            border: none;
+            color: white;
+            cursor: pointer;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.2s;
+        }
+
+        .sound-button:hover {
+            background: rgba(0, 0, 0, 0.8);
+            transform: scale(1.05);
+        }
+
+        .sound-button svg {
+            width: 24px;
+            height: 24px;
+        }
+
         .footer-logo {
             max-width: 250px;
             height: auto;
@@ -567,6 +598,16 @@
         const videoBefore = document.getElementById('video-before');
         const videoAfter = document.getElementById('video-after');
         const mainTitle = document.getElementById('main-title');
+        const soundToggle = document.getElementById('sound-toggle');
+
+        const iconMuted = `<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><line x1="23" y1="9" x2="17" y2="15"></line><line x1="17" y1="9" x2="23" y2="15"></line>`;
+        const iconUnmuted = `<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path><path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>`;
+
+        soundToggle.addEventListener('click', (e) => {
+            e.stopPropagation();
+            videoAfter.muted = !videoAfter.muted;
+            soundToggle.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${videoAfter.muted ? iconMuted : iconUnmuted}</svg>`;
+        });
 
         let currentMode = 'photos'; // photos or videos
 
@@ -597,8 +638,12 @@
                 document.getElementById('photo-sidebar').classList.remove('hidden');
                 imgAfter.classList.remove('hidden');
                 imgBefore.classList.remove('hidden');
+
                 videoAfter.pause();
                 videoBefore.pause();
+                videoAfter.muted = true;
+                soundToggle.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${iconMuted}</svg>`;
+                soundToggle.classList.add('hidden');
 
                 const activePhoto = document.querySelector('#photo-sidebar .active');
                 if (activePhoto) {
@@ -611,6 +656,7 @@
                 document.getElementById('video-sidebar').classList.remove('hidden');
                 videoAfter.classList.remove('hidden');
                 videoBefore.classList.remove('hidden');
+                soundToggle.classList.remove('hidden');
 
                 const activeVideo = document.querySelector('#video-sidebar .active');
                 if (activeVideo) {
