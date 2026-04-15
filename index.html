@@ -351,6 +351,41 @@
             height: 24px;
         }
 
+        .video-controls {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            width: 100%;
+            max-width: 900px;
+            margin-top: 16px;
+        }
+        
+        .control-btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 48px;
+            height: 48px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        .control-btn:hover {
+            transform: scale(1.05);
+            background-color: #333;
+        }
+
+        .control-btn svg {
+            width: 24px;
+            height: 24px;
+            fill: currentColor;
+        }
+
         .footer-logo {
             max-width: 250px;
             height: auto;
@@ -566,6 +601,12 @@
 
                 </div>
 
+                <div class="video-controls hidden" id="video-controls">
+                    <button class="control-btn" id="play-pause-btn" aria-label="Play/Pause">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg>
+                    </button>
+                </div>
+
                 <img src="images/meg-rest-logo.png" alt="Meg Rest Logo" class="footer-logo">
             </main>
         </div>
@@ -642,14 +683,30 @@
         const videoAfter = document.getElementById('video-after');
         const mainTitle = document.getElementById('main-title');
         const soundToggle = document.getElementById('sound-toggle');
+        const videoControls = document.getElementById('video-controls');
+        const playPauseBtn = document.getElementById('play-pause-btn');
 
         const iconMuted = `<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><line x1="23" y1="9" x2="17" y2="15"></line><line x1="17" y1="9" x2="23" y2="15"></line>`;
         const iconUnmuted = `<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path><path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>`;
+        const iconPlay = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>`;
+        const iconPause = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg>`;
 
         soundToggle.addEventListener('click', (e) => {
             e.stopPropagation();
             videoAfter.muted = !videoAfter.muted;
             soundToggle.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${videoAfter.muted ? iconMuted : iconUnmuted}</svg>`;
+        });
+
+        playPauseBtn.addEventListener('click', () => {
+            if (videoAfter.paused) {
+                videoAfter.play();
+                videoBefore.play();
+                playPauseBtn.innerHTML = iconPause;
+            } else {
+                videoAfter.pause();
+                videoBefore.pause();
+                playPauseBtn.innerHTML = iconPlay;
+            }
         });
 
         let currentMode = 'photos'; // photos or videos
@@ -687,6 +744,7 @@
                 videoAfter.muted = true;
                 soundToggle.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${iconMuted}</svg>`;
                 soundToggle.classList.add('hidden');
+                videoControls.classList.add('hidden');
 
                 const activePhoto = document.querySelector('#photo-sidebar .active');
                 if (activePhoto) {
@@ -700,6 +758,12 @@
                 videoAfter.classList.remove('hidden');
                 videoBefore.classList.remove('hidden');
                 soundToggle.classList.remove('hidden');
+                videoControls.classList.remove('hidden');
+                
+                // Ensure playing when switching back to video mode
+                videoAfter.play();
+                videoBefore.play();
+                playPauseBtn.innerHTML = iconPause;
 
                 const activeVideo = document.querySelector('#video-sidebar .active');
                 if (activeVideo) {
