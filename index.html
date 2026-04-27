@@ -775,13 +775,25 @@
 
         playPauseBtn.addEventListener('click', () => {
             if (videoAfter.paused) {
+                videoBefore.currentTime = videoAfter.currentTime;
                 videoAfter.play();
                 videoBefore.play();
                 playPauseBtn.innerHTML = iconPause;
             } else {
                 videoAfter.pause();
                 videoBefore.pause();
+                videoBefore.currentTime = videoAfter.currentTime;
                 playPauseBtn.innerHTML = iconPlay;
+            }
+        });
+
+        videoAfter.addEventListener('seeked', () => {
+            videoBefore.currentTime = videoAfter.currentTime;
+        });
+
+        videoAfter.addEventListener('playing', () => {
+            if (Math.abs(videoAfter.currentTime - videoBefore.currentTime) > 0.1) {
+                videoBefore.currentTime = videoAfter.currentTime;
             }
         });
 
