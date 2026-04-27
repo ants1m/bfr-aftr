@@ -581,6 +581,11 @@
                     <li><a href="#" class="menu-link" onclick="loadVideo('video1', event)">- video 1</a></li>
                     <li><a href="#" class="menu-link" onclick="loadVideo('video2', event)">- video 2</a></li>
                 </ul>
+
+                <div class="sidebar-category collapsed" id="gated-category" onclick="unlockMenu(this)">exclusive videos</div>
+                <ul class="sidebar-menu collapsed" id="gated-menu">
+                    <li><a href="#" class="menu-link" onclick="loadVideo('video_exclusive', event)">- locked video</a></li>
+                </ul>
             </div>
 
         </aside>
@@ -742,7 +747,8 @@
 
         const videoComparisons = {
             'video1': { title: 'Video 1', before: 'videos/beforevideo1.mp4', after: 'videos/aftervideo1.mp4' },
-            'video2': { title: 'Video 2 (WZSR vs ONHOUSE)', before: 'videos/wzsr.mp4', after: 'videos/onhouse.mp4' }
+            'video2': { title: 'Video 2 (WZSR vs ONHOUSE)', before: 'videos/wzsr.mp4', after: 'videos/onhouse.mp4' },
+            'video_exclusive': { title: 'Locked Video', before: '', after: '' }
         };
 
         const container = document.getElementById('comparison-container');
@@ -780,6 +786,23 @@
         });
 
         let currentMode = 'photos'; // photos or videos
+        let isExclusiveUnlocked = false;
+
+        function unlockMenu(categoryEl) {
+            if (isExclusiveUnlocked) {
+                toggleMenu(categoryEl);
+                return;
+            }
+
+            const pwd = prompt("This section is restricted. Enter password:");
+            if (pwd === "1234") {
+                isExclusiveUnlocked = true;
+                toggleMenu(categoryEl);
+                categoryEl.innerText = "exclusive videos (unlocked)";
+            } else if (pwd !== null) {
+                alert("Incorrect password.");
+            }
+        }
 
         function toggleMenu(categoryEl) {
             categoryEl.classList.toggle('collapsed');
