@@ -107,6 +107,23 @@
             gap: 1rem;
         }
 
+        div.sidebar-menu {
+            gap: 0;
+        }
+
+        .sidebar-menu .sidebar-menu {
+            margin-left: 1rem;
+            border-left: 1px solid rgba(0,0,0,0.1);
+            padding-left: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .sidebar-menu .sidebar-category {
+            margin-top: 0.5rem;
+            margin-bottom: 0.5rem;
+            font-size: 1.05rem;
+        }
+
         .sidebar-menu.collapsed {
             display: none;
         }
@@ -475,102 +492,112 @@
 
             <!-- PHOTOS MENUS -->
             <div id="photo-sidebar">
-                <div class="sidebar-category" onclick="toggleMenu(this)">σαββατογεννημένες επεισόδιο 1</div>
-                <ul class="sidebar-menu">
-                    <li><a href="#" class="menu-link active" onclick="loadComparison('ep1_1', event)">- still 1</a></li>
-                    <li><a href="#" class="menu-link" onclick="loadComparison('ep1_2', event)">- still 2</a></li>
-                    <li><a href="#" class="menu-link" onclick="loadComparison('ep1_3', event)">- still 3</a></li>
-                    <li><a href="#" class="menu-link" onclick="loadComparison('ep1_4', event)">- still 4</a></li>
-                    <li><a href="#" class="menu-link" onclick="loadComparison('ep1_5', event)">- still 5</a></li>
-                    <li><a href="#" class="menu-link" onclick="loadComparison('ep1_6', event)">- still 6</a></li>
-                    <li><a href="#" class="menu-link" onclick="loadComparison('ep1_7', event)">- still 7</a></li>
-                    <li><a href="#" class="menu-link" onclick="loadComparison('ep1_8', event)">- still 8</a></li>
-                    <li><a href="#" class="menu-link" onclick="loadComparison('ep1_9', event)">- still 9</a></li>
-                    <li><a href="#" class="menu-link" onclick="loadComparison('ep1_10', event)">- still 10</a></li>
-                    <li><a href="#" class="menu-link" onclick="loadComparison('ep1_11', event)">- still 11</a></li>
-                    <li><a href="#" class="menu-link" onclick="loadComparison('ep1_12', event)">- still 12</a></li>
-                    <li><a href="#" class="menu-link" onclick="loadComparison('ep1_13', event)">- still 13</a></li>
-                    <li><a href="#" class="menu-link" onclick="loadComparison('ep1_14', event)">- still 14</a></li>
-                    <li><a href="#" class="menu-link" onclick="loadComparison('ep1_15', event)">- still 15</a></li>
-                    <li><a href="#" class="menu-link" onclick="loadComparison('ep1_16', event)">- still 16</a></li>
-                    <li><a href="#" class="menu-link" onclick="loadComparison('ep1_17', event)">- still 17</a></li>
-                    <li><a href="#" class="menu-link" onclick="loadComparison('ep1_18', event)">- still 18</a></li>
-                </ul>
+                <div class="sidebar-category" onclick="toggleMenu(this)">σαββατογεννημένες</div>
+                <div class="sidebar-menu">
+                    <div class="sidebar-category" onclick="toggleMenu(this)">επεισόδιο 1</div>
+                    <ul class="sidebar-menu">
+                        <li><a href="#" class="menu-link active" onclick="loadComparison('ep1_1', event)">- still 1</a></li>
+                        <li><a href="#" class="menu-link" onclick="loadComparison('ep1_2', event)">- still 2</a></li>
+                        <li><a href="#" class="menu-link" onclick="loadComparison('ep1_3', event)">- still 3</a></li>
+                        <li><a href="#" class="menu-link" onclick="loadComparison('ep1_4', event)">- still 4</a></li>
+                        <li><a href="#" class="menu-link" onclick="loadComparison('ep1_5', event)">- still 5</a></li>
+                        <li><a href="#" class="menu-link" onclick="loadComparison('ep1_6', event)">- still 6</a></li>
+                        <li><a href="#" class="menu-link" onclick="loadComparison('ep1_7', event)">- still 7</a></li>
+                        <li><a href="#" class="menu-link" onclick="loadComparison('ep1_8', event)">- still 8</a></li>
+                        <li><a href="#" class="menu-link" onclick="loadComparison('ep1_9', event)">- still 9</a></li>
+                        <li><a href="#" class="menu-link" onclick="loadComparison('ep1_10', event)">- still 10</a></li>
+                        <li><a href="#" class="menu-link" onclick="loadComparison('ep1_11', event)">- still 11</a></li>
+                        <li><a href="#" class="menu-link" onclick="loadComparison('ep1_12', event)">- still 12</a></li>
+                        <li><a href="#" class="menu-link" onclick="loadComparison('ep1_13', event)">- still 13</a></li>
+                        <li><a href="#" class="menu-link" onclick="loadComparison('ep1_14', event)">- still 14</a></li>
+                        <li><a href="#" class="menu-link" onclick="loadComparison('ep1_15', event)">- still 15</a></li>
+                        <li><a href="#" class="menu-link" onclick="loadComparison('ep1_16', event)">- still 16</a></li>
+                        <li><a href="#" class="menu-link" onclick="loadComparison('ep1_17', event)">- still 17</a></li>
+                        <li><a href="#" class="menu-link" onclick="loadComparison('ep1_18', event)">- still 18</a></li>
+                    </ul>
 
-                <div class="sidebar-category collapsed" onclick="toggleMenu(this)">σαββατογεννημένες επεισόδιο 2</div>
-                <ul class="sidebar-menu collapsed">
-                    <li><a href="#" class="menu-link" onclick="loadComparison('chapter1', event)">- still 1</a></li>
-                    <li><a href="#" class="menu-link" onclick="loadComparison('chapter2', event)">- still 2</a></li>
-                    <li><a href="#" class="menu-link" onclick="loadComparison('chapter3', event)">- still 3</a></li>
-                    <li><a href="#" class="menu-link" onclick="loadComparison('chapter4', event)">- still 4</a></li>
-                    <li><a href="#" class="menu-link" onclick="loadComparison('chapter5', event)">- still 5</a></li>
-                    <li><a href="#" class="menu-link" onclick="loadComparison('chapter6', event)">- still 6</a></li>
-                    <li><a href="#" class="menu-link" onclick="loadComparison('chapter7', event)">- still 7</a></li>
-                    <li><a href="#" class="menu-link" onclick="loadComparison('chapter8', event)">- still 8</a></li>
-                    <li><a href="#" class="menu-link" onclick="loadComparison('chapter9', event)">- still 9</a></li>
-                    <li><a href="#" class="menu-link" onclick="loadComparison('chapter10', event)">- still 10</a></li>
-                    <li><a href="#" class="menu-link" onclick="loadComparison('chapter11', event)">- still 11</a></li>
-                    <li><a href="#" class="menu-link" onclick="loadComparison('chapter12', event)">- still 12</a></li>
-                    <li><a href="#" class="menu-link" onclick="loadComparison('chapter13', event)">- still 13</a></li>
-                    <li><a href="#" class="menu-link" onclick="loadComparison('chapter14', event)">- still 14</a></li>
-                    <li><a href="#" class="menu-link" onclick="loadComparison('chapter15', event)">- still 15</a></li>
-                    <li><a href="#" class="menu-link" onclick="loadComparison('chapter16', event)">- still 16</a></li>
-                    <li><a href="#" class="menu-link" onclick="loadComparison('chapter17', event)">- still 17</a></li>
-                    <li><a href="#" class="menu-link" onclick="loadComparison('chapter18', event)">- still 18</a></li>
-                    <li><a href="#" class="menu-link" onclick="loadComparison('chapter19', event)">- still 19</a></li>
-                    <li><a href="#" class="menu-link" onclick="loadComparison('chapter20', event)">- still 20</a></li>
-                </ul>
+                    <div class="sidebar-category collapsed" onclick="toggleMenu(this)">επεισόδιο 2</div>
+                    <ul class="sidebar-menu collapsed">
+                        <li><a href="#" class="menu-link" onclick="loadComparison('chapter1', event)">- still 1</a></li>
+                        <li><a href="#" class="menu-link" onclick="loadComparison('chapter2', event)">- still 2</a></li>
+                        <li><a href="#" class="menu-link" onclick="loadComparison('chapter3', event)">- still 3</a></li>
+                        <li><a href="#" class="menu-link" onclick="loadComparison('chapter4', event)">- still 4</a></li>
+                        <li><a href="#" class="menu-link" onclick="loadComparison('chapter5', event)">- still 5</a></li>
+                        <li><a href="#" class="menu-link" onclick="loadComparison('chapter6', event)">- still 6</a></li>
+                        <li><a href="#" class="menu-link" onclick="loadComparison('chapter7', event)">- still 7</a></li>
+                        <li><a href="#" class="menu-link" onclick="loadComparison('chapter8', event)">- still 8</a></li>
+                        <li><a href="#" class="menu-link" onclick="loadComparison('chapter9', event)">- still 9</a></li>
+                        <li><a href="#" class="menu-link" onclick="loadComparison('chapter10', event)">- still 10</a></li>
+                        <li><a href="#" class="menu-link" onclick="loadComparison('chapter11', event)">- still 11</a></li>
+                        <li><a href="#" class="menu-link" onclick="loadComparison('chapter12', event)">- still 12</a></li>
+                        <li><a href="#" class="menu-link" onclick="loadComparison('chapter13', event)">- still 13</a></li>
+                        <li><a href="#" class="menu-link" onclick="loadComparison('chapter14', event)">- still 14</a></li>
+                        <li><a href="#" class="menu-link" onclick="loadComparison('chapter15', event)">- still 15</a></li>
+                        <li><a href="#" class="menu-link" onclick="loadComparison('chapter16', event)">- still 16</a></li>
+                        <li><a href="#" class="menu-link" onclick="loadComparison('chapter17', event)">- still 17</a></li>
+                        <li><a href="#" class="menu-link" onclick="loadComparison('chapter18', event)">- still 18</a></li>
+                        <li><a href="#" class="menu-link" onclick="loadComparison('chapter19', event)">- still 19</a></li>
+                        <li><a href="#" class="menu-link" onclick="loadComparison('chapter20', event)">- still 20</a></li>
+                    </ul>
 
-                <div class="sidebar-category collapsed" onclick="toggleMenu(this)">σαββατογεννημένες επεισόδιο 3</div>
-                <ul class="sidebar-menu collapsed">
-                    <li><a href="#" class="menu-link" onclick="loadComparison('ep3_1', event)">- still 1</a></li>
-                    <li><a href="#" class="menu-link" onclick="loadComparison('ep3_2', event)">- still 2</a></li>
-                    <li><a href="#" class="menu-link" onclick="loadComparison('ep3_3', event)">- still 3</a></li>
-                    <li><a href="#" class="menu-link" onclick="loadComparison('ep3_4', event)">- still 4</a></li>
-                    <li><a href="#" class="menu-link" onclick="loadComparison('ep3_5', event)">- still 5</a></li>
-                    <li><a href="#" class="menu-link" onclick="loadComparison('ep3_6', event)">- still 6</a></li>
-                    <li><a href="#" class="menu-link" onclick="loadComparison('ep3_7', event)">- still 7</a></li>
-                    <li><a href="#" class="menu-link" onclick="loadComparison('ep3_8', event)">- still 8</a></li>
-                    <li><a href="#" class="menu-link" onclick="loadComparison('ep3_9', event)">- still 9</a></li>
-                    <li><a href="#" class="menu-link" onclick="loadComparison('ep3_10', event)">- still 10</a></li>
-                    <li><a href="#" class="menu-link" onclick="loadComparison('ep3_11', event)">- still 11</a></li>
-                </ul>
+                    <div class="sidebar-category collapsed" onclick="toggleMenu(this)">επεισόδιο 3</div>
+                    <ul class="sidebar-menu collapsed">
+                        <li><a href="#" class="menu-link" onclick="loadComparison('ep3_1', event)">- still 1</a></li>
+                        <li><a href="#" class="menu-link" onclick="loadComparison('ep3_2', event)">- still 2</a></li>
+                        <li><a href="#" class="menu-link" onclick="loadComparison('ep3_3', event)">- still 3</a></li>
+                        <li><a href="#" class="menu-link" onclick="loadComparison('ep3_4', event)">- still 4</a></li>
+                        <li><a href="#" class="menu-link" onclick="loadComparison('ep3_5', event)">- still 5</a></li>
+                        <li><a href="#" class="menu-link" onclick="loadComparison('ep3_6', event)">- still 6</a></li>
+                        <li><a href="#" class="menu-link" onclick="loadComparison('ep3_7', event)">- still 7</a></li>
+                        <li><a href="#" class="menu-link" onclick="loadComparison('ep3_8', event)">- still 8</a></li>
+                        <li><a href="#" class="menu-link" onclick="loadComparison('ep3_9', event)">- still 9</a></li>
+                        <li><a href="#" class="menu-link" onclick="loadComparison('ep3_10', event)">- still 10</a></li>
+                        <li><a href="#" class="menu-link" onclick="loadComparison('ep3_11', event)">- still 11</a></li>
+                    </ul>
 
-                <div class="sidebar-category collapsed" onclick="toggleMenu(this)">σαββατογεννημένες επεισόδιο 4</div>
-                <ul class="sidebar-menu collapsed">
-                    <li><a href="#" class="menu-link" onclick="loadComparison('ep4_1', event)">- still 1</a></li>
-                    <li><a href="#" class="menu-link" onclick="loadComparison('ep4_2', event)">- still 2</a></li>
-                    <li><a href="#" class="menu-link" onclick="loadComparison('ep4_3', event)">- still 3</a></li>
-                    <li><a href="#" class="menu-link" onclick="loadComparison('ep4_4', event)">- still 4</a></li>
-                    <li><a href="#" class="menu-link" onclick="loadComparison('ep4_5', event)">- still 5</a></li>
-                    <li><a href="#" class="menu-link" onclick="loadComparison('ep4_6', event)">- still 6</a></li>
-                    <li><a href="#" class="menu-link" onclick="loadComparison('ep4_7', event)">- still 7</a></li>
-                    <li><a href="#" class="menu-link" onclick="loadComparison('ep4_8', event)">- still 8</a></li>
-                    <li><a href="#" class="menu-link" onclick="loadComparison('ep4_9', event)">- still 9</a></li>
-                    <li><a href="#" class="menu-link" onclick="loadComparison('ep4_10', event)">- still 10</a></li>
-                    <li><a href="#" class="menu-link" onclick="loadComparison('ep4_11', event)">- still 11</a></li>
-                    <li><a href="#" class="menu-link" onclick="loadComparison('ep4_12', event)">- still 12</a></li>
-                    <li><a href="#" class="menu-link" onclick="loadComparison('ep4_13', event)">- still 13</a></li>
-                    <li><a href="#" class="menu-link" onclick="loadComparison('ep4_14', event)">- still 14</a></li>
-                    <li><a href="#" class="menu-link" onclick="loadComparison('ep4_15', event)">- still 15</a></li>
-                    <li><a href="#" class="menu-link" onclick="loadComparison('ep4_16', event)">- still 16</a></li>
-                    <li><a href="#" class="menu-link" onclick="loadComparison('ep4_17', event)">- still 17</a></li>
-                </ul>
+                    <div class="sidebar-category collapsed" onclick="toggleMenu(this)">επεισόδιο 4</div>
+                    <ul class="sidebar-menu collapsed">
+                        <li><a href="#" class="menu-link" onclick="loadComparison('ep4_1', event)">- still 1</a></li>
+                        <li><a href="#" class="menu-link" onclick="loadComparison('ep4_2', event)">- still 2</a></li>
+                        <li><a href="#" class="menu-link" onclick="loadComparison('ep4_3', event)">- still 3</a></li>
+                        <li><a href="#" class="menu-link" onclick="loadComparison('ep4_4', event)">- still 4</a></li>
+                        <li><a href="#" class="menu-link" onclick="loadComparison('ep4_5', event)">- still 5</a></li>
+                        <li><a href="#" class="menu-link" onclick="loadComparison('ep4_6', event)">- still 6</a></li>
+                        <li><a href="#" class="menu-link" onclick="loadComparison('ep4_7', event)">- still 7</a></li>
+                        <li><a href="#" class="menu-link" onclick="loadComparison('ep4_8', event)">- still 8</a></li>
+                        <li><a href="#" class="menu-link" onclick="loadComparison('ep4_9', event)">- still 9</a></li>
+                        <li><a href="#" class="menu-link" onclick="loadComparison('ep4_10', event)">- still 10</a></li>
+                        <li><a href="#" class="menu-link" onclick="loadComparison('ep4_11', event)">- still 11</a></li>
+                        <li><a href="#" class="menu-link" onclick="loadComparison('ep4_12', event)">- still 12</a></li>
+                        <li><a href="#" class="menu-link" onclick="loadComparison('ep4_13', event)">- still 13</a></li>
+                        <li><a href="#" class="menu-link" onclick="loadComparison('ep4_14', event)">- still 14</a></li>
+                        <li><a href="#" class="menu-link" onclick="loadComparison('ep4_15', event)">- still 15</a></li>
+                        <li><a href="#" class="menu-link" onclick="loadComparison('ep4_16', event)">- still 16</a></li>
+                        <li><a href="#" class="menu-link" onclick="loadComparison('ep4_17', event)">- still 17</a></li>
+                    </ul>
 
-                <div class="sidebar-category collapsed" onclick="toggleMenu(this)">σαββατογεννημένες επεισόδιο 5</div>
+                    <div class="sidebar-category collapsed" onclick="toggleMenu(this)">επεισόδιο 5</div>
+                    <ul class="sidebar-menu collapsed">
+                        <li><a href="#" class="menu-link" onclick="loadComparison('ep5_1', event)">- still 1</a></li>
+                        <li><a href="#" class="menu-link" onclick="loadComparison('ep5_2', event)">- still 2</a></li>
+                        <li><a href="#" class="menu-link" onclick="loadComparison('ep5_3', event)">- still 3</a></li>
+                        <li><a href="#" class="menu-link" onclick="loadComparison('ep5_4', event)">- still 4</a></li>
+                        <li><a href="#" class="menu-link" onclick="loadComparison('ep5_5', event)">- still 5</a></li>
+                        <li><a href="#" class="menu-link" onclick="loadComparison('ep5_6', event)">- still 6</a></li>
+                        <li><a href="#" class="menu-link" onclick="loadComparison('ep5_7', event)">- still 7</a></li>
+                        <li><a href="#" class="menu-link" onclick="loadComparison('ep5_8', event)">- still 8</a></li>
+                        <li><a href="#" class="menu-link" onclick="loadComparison('ep5_9', event)">- still 9</a></li>
+                        <li><a href="#" class="menu-link" onclick="loadComparison('ep5_10', event)">- still 10</a></li>
+                        <li><a href="#" class="menu-link" onclick="loadComparison('ep5_11', event)">- still 11</a></li>
+                        <li><a href="#" class="menu-link" onclick="loadComparison('ep5_12', event)">- still 12</a></li>
+                    </ul>
+                </div>
+
+                <div class="sidebar-category collapsed" onclick="toggleMenu(this)">στο παρά 5</div>
                 <ul class="sidebar-menu collapsed">
-                    <li><a href="#" class="menu-link" onclick="loadComparison('ep5_1', event)">- still 1</a></li>
-                    <li><a href="#" class="menu-link" onclick="loadComparison('ep5_2', event)">- still 2</a></li>
-                    <li><a href="#" class="menu-link" onclick="loadComparison('ep5_3', event)">- still 3</a></li>
-                    <li><a href="#" class="menu-link" onclick="loadComparison('ep5_4', event)">- still 4</a></li>
-                    <li><a href="#" class="menu-link" onclick="loadComparison('ep5_5', event)">- still 5</a></li>
-                    <li><a href="#" class="menu-link" onclick="loadComparison('ep5_6', event)">- still 6</a></li>
-                    <li><a href="#" class="menu-link" onclick="loadComparison('ep5_7', event)">- still 7</a></li>
-                    <li><a href="#" class="menu-link" onclick="loadComparison('ep5_8', event)">- still 8</a></li>
-                    <li><a href="#" class="menu-link" onclick="loadComparison('ep5_9', event)">- still 9</a></li>
-                    <li><a href="#" class="menu-link" onclick="loadComparison('ep5_10', event)">- still 10</a></li>
-                    <li><a href="#" class="menu-link" onclick="loadComparison('ep5_11', event)">- still 11</a></li>
-                    <li><a href="#" class="menu-link" onclick="loadComparison('ep5_12', event)">- still 12</a></li>
+                    <li><a href="#" class="menu-link" onclick="loadComparison('sp5_1', event)">- still 1</a></li>
+                    <li><a href="#" class="menu-link" onclick="loadComparison('sp5_2', event)">- still 2</a></li>
+                    <li><a href="#" class="menu-link" onclick="loadComparison('sp5_3', event)">- still 3</a></li>
                 </ul>
             </div>
 
@@ -742,7 +769,10 @@
             'ep5_9': { title: 'Still 9', before: 'images/EP5/SVT_EP5_BEFORE9.png', after: 'images/EP5/SVT_EP5_AFTER9.png' },
             'ep5_10': { title: 'Still 10', before: 'images/EP5/SVT_EP5_BEFORE10.png', after: 'images/EP5/SVT_EP5_AFTER10.png' },
             'ep5_11': { title: 'Still 11', before: 'images/EP5/SVT_EP5_BEFORE11.png', after: 'images/EP5/SVT_EP5_AFTER11.png' },
-            'ep5_12': { title: 'Still 12', before: 'images/EP5/SVT_EP5_BEFORE12.png', after: 'images/EP5/SVT_EP5_AFTER12.png' }
+            'ep5_12': { title: 'Still 12', before: 'images/EP5/SVT_EP5_BEFORE12.png', after: 'images/EP5/SVT_EP5_AFTER12.png' },
+            'sp5_1': { title: 'Still 1', before: 'images/STO PARA 5/SP5_BFR_1.png', after: 'images/STO PARA 5/SP5_AFTR1.png' },
+            'sp5_2': { title: 'Still 2', before: 'images/STO PARA 5/SP5_BFR_2.png', after: 'images/STO PARA 5/SP5_AFTR_2.png' },
+            'sp5_3': { title: 'Still 3', before: 'images/STO PARA 5/SP5_BFR_3.png', after: 'images/STO PARA 5/SP5_AFTR_3.png' }
         };
 
         const videoComparisons = {
