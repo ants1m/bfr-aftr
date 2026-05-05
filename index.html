@@ -377,6 +377,14 @@
             margin-top: 16px;
         }
         
+        .video-timer {
+            font-size: 1.1rem;
+            color: #555;
+            margin-left: 1rem;
+            font-variant-numeric: tabular-nums;
+            font-weight: 500;
+        }
+        
         .control-btn {
             background-color: var(--primary);
             color: white;
@@ -677,6 +685,7 @@
                     <button class="control-btn" id="play-pause-btn" aria-label="Play/Pause">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg>
                     </button>
+                    <div class="video-timer" id="video-timer">00:00 / 00:00</div>
                 </div>
 
                 <img src="images/meg-rest-logo.png" alt="Meg Rest Logo" class="footer-logo">
@@ -831,6 +840,21 @@
             if (Math.abs(videoAfter.currentTime - videoBefore.currentTime) > 0.1) {
                 videoBefore.currentTime = videoAfter.currentTime;
             }
+        });
+
+        function formatTime(seconds) {
+            if (isNaN(seconds)) return "00:00";
+            const m = Math.floor(seconds / 60).toString().padStart(2, '0');
+            const s = Math.floor(seconds % 60).toString().padStart(2, '0');
+            return `${m}:${s}`;
+        }
+
+        videoAfter.addEventListener('timeupdate', () => {
+            videoTimer.innerText = `${formatTime(videoAfter.currentTime)} / ${formatTime(videoAfter.duration)}`;
+        });
+        
+        videoAfter.addEventListener('loadedmetadata', () => {
+            videoTimer.innerText = `${formatTime(videoAfter.currentTime)} / ${formatTime(videoAfter.duration)}`;
         });
 
         let currentMode = 'photos'; // photos or videos
