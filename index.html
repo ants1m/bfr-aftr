@@ -609,6 +609,7 @@
                 <ul class="sidebar-menu">
                     <li><a href="#" class="menu-link" onclick="loadVideo('video1', event)">- video 1</a></li>
                     <li><a href="#" class="menu-link" onclick="loadVideo('video2', event)">- video 2</a></li>
+                    <li><a href="#" class="menu-link" onclick="loadVideo('video3', event)">- video 3 (sp5)</a></li>
                 </ul>
 
                 <div class="sidebar-category collapsed" id="gated-category" onclick="unlockMenu(this)">exclusive videos</div>
@@ -782,7 +783,8 @@
         const videoComparisons = {
             'video1': { title: 'Video 1', before: 'videos/beforevideo1.mp4', after: 'videos/aftervideo1.mp4' },
             'video2': { title: 'Video 2 (WZSR vs ONHOUSE)', before: 'videos/wzsr.mp4', after: 'videos/onhouse.mp4' },
-            'video_exclusive': { title: 'Locked Video (SP5 TEST)', before: 'videos/sp5test_before.mp4', after: 'videos/sp5test_after.mp4' }
+            'video_exclusive': { title: 'Locked Video (SP5 TEST)', before: 'videos/sp5test_before.mp4', after: 'videos/sp5test_after.mp4' },
+            'video3': { title: 'Video 3 (SP5 Demo)', before: 'videos/sp5_ep1_demo_before.mp4', after: 'videos/sp5_ep1_demo_after.mp4' }
         };
 
         const container = document.getElementById('comparison-container');
